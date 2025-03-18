@@ -16,7 +16,7 @@ public class TourEditController {
     @FXML
     private TextField nameField;
     @FXML
-    private TextField DescriptionField;
+    private TextField descriptionField;
     @FXML
     private TextField fromField;
     @FXML
@@ -38,14 +38,12 @@ public class TourEditController {
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
-        this.dialogStage.getScene().setOnKeyPressed(event -> {
-        });
     }
 
     public void setTourViewModel(TourViewModel tourViewModel) {
         this.tourViewModel = tourViewModel;
         nameField.textProperty().bindBidirectional(tourViewModel.nameProperty());
-        DescriptionField.textProperty().bindBidirectional(tourViewModel.descriptionProperty());
+        descriptionField.textProperty().bindBidirectional(tourViewModel.descriptionProperty());
         fromField.textProperty().bindBidirectional(tourViewModel.fromProperty());
         toField.textProperty().bindBidirectional(tourViewModel.toProperty());
         transportTypeField.textProperty().bindBidirectional(tourViewModel.transportTypeProperty());
@@ -77,7 +75,7 @@ public class TourEditController {
         if (nameField.getText() == null || nameField.getText().isEmpty()) {
             errorMessage += "Please enter a valid name!!\n";
         }
-        if (DescriptionField.getText() == null || DescriptionField.getText().isEmpty()) {
+        if (descriptionField.getText() == null || descriptionField.getText().isEmpty()) {
             errorMessage += "Please enter a valid description!!\n";
         }
         if (fromField.getText() == null || fromField.getText().isEmpty()) {
@@ -101,4 +99,6 @@ public class TourEditController {
         }
         return false;
     }
+
+
 }

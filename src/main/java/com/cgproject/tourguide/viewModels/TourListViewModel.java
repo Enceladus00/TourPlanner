@@ -37,9 +37,7 @@ public class TourListViewModel {
         }
     }
 
-    public void deleteTour(int index) {
-        if (index >= 0 && index < tours.size()) {
-            tours.remove(index);
-        }
+    public void removeTour(TourViewModel tour) {
+        tours.remove(tour);
     }
 }

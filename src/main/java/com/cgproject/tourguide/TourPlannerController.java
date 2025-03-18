@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -75,13 +76,46 @@ public class TourPlannerController implements Initializable {
     }
     @FXML
     private void onEditTour(ActionEvent event) {
+        TourViewModel selectedTour = tourListView.getSelectionModel().getSelectedItem();
+        if (selectedTour != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("tourEditWindow.fxml"));
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Edit Tour");
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(tourListView.getScene().getWindow());
+                Scene scene = new Scene(loader.load());
+                dialogStage.setScene(scene);
 
-        System.out.println("Edit Tour button clicked");
+                TourEditController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                controller.setTourViewModel(selectedTour);
+
+                dialogStage.showAndWait();
+
+                if (controller.isOkClicked()) {
+                    // Handle the case when OK is clicked
+                    tourListView.refresh();
+                    System.out.println("Tour edited successfully");
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     @FXML
     private void onDeleteTour(ActionEvent event) {
-
-        System.out.println("Delete Tour button clicked");
+        TourViewModel selectedTour = tourListView.getSelectionModel().getSelectedItem();
+        if (selectedTour != null) {
+            tourListViewAdd.removeTour(selectedTour);
+            tourListView.getSelectionModel().clearSelection();
+            tourListView.refresh();
+            System.out.println("Tour deleted successfully");
+        } else {
+            System.out.println("No tour selected for deletion");
+        }
     }
 
     @Override
