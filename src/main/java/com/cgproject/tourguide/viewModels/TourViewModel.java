@@ -12,6 +12,9 @@ public class TourViewModel {
     private final DoubleProperty estimatedTime;
     private final StringProperty routeInformation;
 
+    public String getName() {
+        return name.get();
+    }
     public TourViewModel(Tour tour) {
         this.name = new SimpleStringProperty(tour.getName());
         this.tourDescription = new SimpleStringProperty(tour.getTourDescription());
@@ -27,7 +30,7 @@ public class TourViewModel {
         return name;
     }
 
-    public StringProperty tourDescriptionProperty() {
+    public StringProperty descriptionProperty() {
         return tourDescription;
     }
 
