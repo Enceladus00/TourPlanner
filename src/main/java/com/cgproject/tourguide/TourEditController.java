@@ -68,7 +68,15 @@ public class TourEditController {
     private void handleCancel() {
         dialogStage.close();
     }
-
+    public void setReadOnly() {
+        nameField.setDisable(true);
+        descriptionField.setDisable(true);
+        fromField.setDisable(true);
+        toField.setDisable(true);
+        transportTypeField.setDisable(true);
+        tourDistanceField.setDisable(true);
+        estimatedTimeField.setDisable(true);
+    }
     private boolean isInputValid() {
         String errorMessage = "";
 

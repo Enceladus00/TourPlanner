@@ -118,6 +118,33 @@ public class TourPlannerController implements Initializable {
         }
     }
 
+    @FXML
+    private void onDetails(ActionEvent event) {
+        TourViewModel selectedTour = tourListView.getSelectionModel().getSelectedItem();
+        if (selectedTour != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("tourEditWindow.fxml"));
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Tour Details");
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(tourListView.getScene().getWindow());
+                Scene scene = new Scene(loader.load());
+                dialogStage.setScene(scene);
+
+                TourEditController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                controller.setTourViewModel(selectedTour);
+                controller.setReadOnly();
+
+                dialogStage.showAndWait();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tourListViewAdd = new TourListViewModel();

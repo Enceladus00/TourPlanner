@@ -78,9 +78,10 @@
                <children>
                   <ButtonBar prefHeight="26.0" prefWidth="393.0">
                      <buttons>
-                        <Button mnemonicParsing="false" onAction="#onAddTour" text="Add" />
-                        <Button mnemonicParsing="false" onAction="#onEditTour" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#onAddTour" text="Add..." />
+                        <Button mnemonicParsing="false" onAction="#onEditTour" text="Edit..." />
                         <Button mnemonicParsing="false" onAction="#onDeleteTour" text="Delete" />
+                        <Button mnemonicParsing="false" onAction="#onDetails" text="Details" />
                      </buttons>
                   </ButtonBar>
                   <ListView fx:id="tourListView" prefHeight="284.0" prefWidth="215.0" />
