@@ -50,20 +50,8 @@
             <VBox prefHeight="200.0" prefWidth="418.0" GridPane.columnIndex="1">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="419.0" pickOnBounds="true" preserveRatio="true" />
-                  <ButtonBar prefHeight="26.0" prefWidth="393.0">
-                    <buttons>
-                      <Button mnemonicParsing="false" text="Add" />
-                        <Button mnemonicParsing="false" text="Edit" />
-                        <Button mnemonicParsing="false" text="Delete" />
-                    </buttons>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets right="100.0" />
-                     </padding>
-                  </ButtonBar>
-                  <TableView prefHeight="130.0" prefWidth="250.0">
+                   <com.cgproject.tourguide.components.ButtonBar />
+                   <TableView prefHeight="130.0" prefWidth="250.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />

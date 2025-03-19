@@ -2,6 +2,7 @@ package com.cgproject.tourguide;
 import com.cgproject.tourguide.models.Tour;
 import com.cgproject.tourguide.viewModels.TourListViewModel;
 import com.cgproject.tourguide.viewModels.TourViewModel;
+import com.cgproject.tourguide.components.ButtonBar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.collections.ObservableList;
@@ -142,6 +143,31 @@ public class TourPlannerController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    @FXML
+    private ButtonBar buttonBar;
+
+    public void initialize() {
+        buttonBar.setOnNewAction(() -> handleNewTour());
+        buttonBar.setOnEditAction(() -> handleEditTour());
+        buttonBar.setOnDeleteAction(() -> handleDeleteTour());
+    }
+
+    private void handleNewTour() {
+        System.out.println("New Tour Clicked!");
+        // Add logic for creating a new tour
+    }
+
+    private void handleEditTour() {
+        System.out.println("Edit Tour Clicked!");
+        // Add logic for editing a tour
+    }
+
+    private void handleDeleteTour() {
+        System.out.println("Delete Tour Clicked!");
+        // Add logic for deleting a tour
     }
 
 
