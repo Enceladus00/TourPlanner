@@ -1,5 +1,8 @@
 package com.cgproject.tourguide.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tour {
     private String name;
     private String tourDescription;
@@ -9,6 +12,7 @@ public class Tour {
     private double tourDistance;
     private double estimatedTime;
     private String routeInformation;
+    private List<TourLog> tourLogs;
 
     // Constructor
     public Tour(String name, String tourDescription, String from, String to, String transportType, double tourDistance, double estimatedTime, String routeInformation) {
@@ -20,6 +24,7 @@ public class Tour {
         this.tourDistance = tourDistance;
         this.estimatedTime = estimatedTime;
         this.routeInformation = routeInformation;
+        this.tourLogs = new ArrayList<>();
     }
 
     // Getters and Setters
@@ -86,4 +91,17 @@ public class Tour {
     public void setRouteInformation(String routeInformation) {
         this.routeInformation = routeInformation;
     }
+    public List<TourLog> getTourLogs() {
+        return tourLogs;
+    }
+    public  void  setTourLogs(List<TourLog> tourLogs) {
+        this.tourLogs = tourLogs;
+    }
+    public void addTourLog(TourLog tourLog) {
+        this.tourLogs.add(tourLog);
+    }
+    public void removeTourLog(TourLog tourLog) {
+        this.tourLogs.remove(tourLog);
+    }
+
 }
