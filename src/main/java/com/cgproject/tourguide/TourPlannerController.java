@@ -145,32 +145,6 @@ public class TourPlannerController implements Initializable {
         }
     }
 
-
-    @FXML
-    private ButtonBar buttonBar;
-
-    public void initialize() {
-        buttonBar.setOnNewAction(() -> handleNewTour());
-        buttonBar.setOnEditAction(() -> handleEditTour());
-        buttonBar.setOnDeleteAction(() -> handleDeleteTour());
-    }
-
-    private void handleNewTour() {
-        System.out.println("New Tour Clicked!");
-        // Add logic for creating a new tour
-    }
-
-    private void handleEditTour() {
-        System.out.println("Edit Tour Clicked!");
-        // Add logic for editing a tour
-    }
-
-    private void handleDeleteTour() {
-        System.out.println("Delete Tour Clicked!");
-        // Add logic for deleting a tour
-    }
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tourListViewAdd = new TourListViewModel();

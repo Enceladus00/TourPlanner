@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,10 +9,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="231.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cgproject.tourguide.TourLogEditController">
+<AnchorPane prefHeight="288.0" prefWidth="443.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cgproject.tourguide.TourLogEditController">
    <children>
-      <GridPane layoutX="-1.0" layoutY="-2.0" prefHeight="172.0" prefWidth="426.0">
+      <GridPane layoutX="2.0" layoutY="10.0" prefHeight="160.0" prefWidth="423.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.20001220703125" minWidth="10.0" prefWidth="84.99999237060547" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="358.6000442504883" minWidth="10.0" prefWidth="341.00000762939453" />
@@ -24,43 +24,45 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Label">
+            <Label text="Date Time:">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Label" GridPane.rowIndex="1">
+            <Label text="Total Time" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Label" GridPane.rowIndex="2">
+            <Label text="Total Distance" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Label" GridPane.rowIndex="3">
+            <Label text="Difficulty" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Label" GridPane.rowIndex="4">
+            <Label text="Rating" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="dateTimeField" GridPane.columnIndex="1" />
+            <TextField fx:id="totalTimeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="totalDistanceField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="difficultyField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="ratingField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Label layoutY="182.0" text="Label">
+      <Label layoutY="182.0" text="Comment:">
          <padding>
             <Insets left="5.0" />
          </padding>
       </Label>
-      <TextField layoutX="85.0" layoutY="178.0" prefHeight="49.0" prefWidth="342.0" />
+      <TextField fx:id="commentField" layoutX="85.0" layoutY="178.0" prefHeight="49.0" prefWidth="342.0" />
+      <Button layoutX="297.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="26.0" prefWidth="52.0" text="Ok" />
+      <Button layoutX="363.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="26.0" prefWidth="52.0" text="Cancel" />
    </children>
 </AnchorPane>
