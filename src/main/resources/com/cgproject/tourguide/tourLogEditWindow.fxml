@@ -22,38 +22,48 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Date Time:">
+            <Label text="Date:">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Total Time" GridPane.rowIndex="1">
+            <Label text="Total Time" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Total Distance" GridPane.rowIndex="2">
+            <Label text="Total Distance" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Difficulty" GridPane.rowIndex="3">
+            <Label text="Difficulty" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Rating" GridPane.rowIndex="4">
+            <Label text="Rating" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="dateTimeField" GridPane.columnIndex="1" />
-            <TextField fx:id="totalTimeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="totalDistanceField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="difficultyField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="ratingField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="dateField" GridPane.columnIndex="1" />
+            <TextField fx:id="totalTimeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="totalDistanceField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="difficultyField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="ratingField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Time:" GridPane.rowIndex="1">
+               <opaqueInsets>
+                  <Insets left="5.0" />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="timeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Label layoutY="182.0" text="Comment:">

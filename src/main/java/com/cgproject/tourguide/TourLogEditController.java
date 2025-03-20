@@ -16,7 +16,9 @@ public class TourLogEditController {
     @FXML
     private GridPane gridPane;
     @FXML
-    private TextField dateTimeField;
+    private TextField dateField;
+    @FXML
+    private TextField timeField;
     @FXML
     private TextField totalTimeField;
     @FXML
@@ -42,7 +44,8 @@ public class TourLogEditController {
     public void setTourLogViewModel(TourLogViewModel tourLogViewModel) {
         this.tourLogViewModel = tourLogViewModel;
         NumberStringConverter converter = new NumberStringConverter();
-        dateTimeField.textProperty().bindBidirectional(tourLogViewModel.dateTimeProperty(), converter);
+        dateField.textProperty().bindBidirectional(tourLogViewModel.dateProperty(), converter);
+        timeField.textProperty().bindBidirectional(tourLogViewModel.timeProperty(), converter);
         totalTimeField.textProperty().bindBidirectional(tourLogViewModel.totalTimeProperty(), converter);
         totalDistanceField.textProperty().bindBidirectional(tourLogViewModel.totalDistanceProperty(), converter);
         difficultyField.textProperty().bindBidirectional(tourLogViewModel.difficultyProperty(), converter);
@@ -67,7 +70,8 @@ public class TourLogEditController {
     }
 
     public void setReadOnly(){
-        dateTimeField.setDisable(true);
+        dateField.setDisable(true);
+        timeField.setDisable(true);
         totalTimeField.setDisable(true);
         totalDistanceField.setDisable(true);
         difficultyField.setDisable(true);
@@ -78,7 +82,7 @@ public class TourLogEditController {
 
     private boolean isInputValid() {
         String errorMessage = "";
-        if (dateTimeField.getText() == null || dateTimeField.getText().length() == 0) {
+        if (dateField.getText() == null || dateField.getText().length() == 0) {
             errorMessage += "No valid date and time!\n";
         }
         if (totalTimeField.getText() == null || totalTimeField.getText().length() == 0) {

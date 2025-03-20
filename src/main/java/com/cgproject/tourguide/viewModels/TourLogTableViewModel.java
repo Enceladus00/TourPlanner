@@ -6,8 +6,8 @@ import javafx.collections.ObservableList;
 public class TourLogTableViewModel {
     private final ObservableList<TourLogViewModel> tourLogs =
             FXCollections.observableArrayList(
-                    new TourLogViewModel(new TourLog(9.30, "Comment 1", 1.0, 1.0, 1.0, 1.0)),
-                    new TourLogViewModel(new TourLog(10.30, "Comment 2", 2.0, 2.0, 2.0, 2.0))
+                    new TourLogViewModel(new TourLog(17.03, 9.30, "Comment 1", 1.0, 1.0, 1.0, 1.0)),
+                    new TourLogViewModel(new TourLog(21.03, 10.30, "Comment 2", 2.0, 2.0, 2.0, 2.0))
             );
 
     public ObservableList<TourLogViewModel> getTourLogs() {

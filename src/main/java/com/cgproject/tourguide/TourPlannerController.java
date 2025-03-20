@@ -1,7 +1,10 @@
 package com.cgproject.tourguide;
 import com.cgproject.tourguide.components.ButtonBarController;
 import com.cgproject.tourguide.models.Tour;
+import com.cgproject.tourguide.models.TourLog;
 import com.cgproject.tourguide.viewModels.TourListViewModel;
+import com.cgproject.tourguide.viewModels.TourLogTableViewModel;
+import com.cgproject.tourguide.viewModels.TourLogViewModel;
 import com.cgproject.tourguide.viewModels.TourViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,13 +44,17 @@ public class TourPlannerController implements Initializable {
     private TableView tableView;
 
     @FXML
-    private TableColumn<?, ?> column1;
-
+    private TableColumn<TourLogViewModel, Number> dateColumn;
     @FXML
-    private TableColumn<?, ?> column2;
+    private TableColumn<TourLogViewModel, Number> durationColumn;
+    @FXML
+    private TableColumn<TourLogViewModel, Number> distanceColumn;
 
     @FXML
     private ListView<TourViewModel> tourListView;
+
+    @FXML
+    private TableView<TourLogViewModel> tourLogTableView;
 
     @FXML
     private ButtonBar buttonBar;
@@ -138,7 +145,62 @@ public class TourPlannerController implements Initializable {
             }
         }
     }
+    @FXML
+    public void onAddTourLog(ActionEvent event) {
+        TourLog tourLog = new TourLog(0, 0, "comment", 0, 0, 0, 0);
+        TourLogViewModel tlvm = new TourLogViewModel(tourLog);
+        tourLogTableView.getItems().add(tlvm);
+        tourLogTableView.getSelectionModel().clearSelection();
+        tourLogTableView.getSelectionModel().select(tlvm);
+        this.onEditTour(new ActionEvent());
+        System.out.println("Add Tour Log button clicked");
+    }
+    @FXML
+    public void onEditTourLog(ActionEvent event) {
+        TourLogViewModel selectedTourLog = tourLogTableView.getSelectionModel().getSelectedItem();
+        if (selectedTourLog != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("tourLogEditWindow.fxml"));
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Edit Tour Log");
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(tourLogTableView.getScene().getWindow());
+                Scene scene = new Scene(loader.load());
+                dialogStage.setScene(scene);
 
+                TourLogEditController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                controller.setTourLogViewModel(selectedTourLog);
+
+                dialogStage.showAndWait();
+
+                if (controller.isOkClicked()) {
+                    // Handle the case when OK is clicked
+                    tourLogTableView.refresh();
+                    System.out.println("Tour Log edited successfully");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No tour log selected for editing");
+        }
+    }
+    public void onDeleteTourLog(ActionEvent event) {
+        TourLogViewModel selectedTourLog = tourLogTableView.getSelectionModel().getSelectedItem();
+        if (selectedTourLog != null) {
+            tourLogTableView.getItems().remove(selectedTourLog);
+            tourLogTableView.getSelectionModel().clearSelection();
+            tourLogTableView.refresh();
+            System.out.println("Tour Log deleted successfully");
+        } else {
+            System.out.println("No tour log selected for deletion");
+        }
+
+
+        System.out.println("Delete Tour Log button clicked");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -162,6 +224,14 @@ public class TourPlannerController implements Initializable {
                 };
             }
         });
+
+        TourLogTableViewModel tourLogTableViewModel = new TourLogTableViewModel();
+        tourLogTableView.setItems(tourLogTableViewModel.getTourLogs());
+
+        // Bind columns to properties
+        dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        durationColumn.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
+        distanceColumn.setCellValueFactory(cellData -> cellData.getValue().totalDistanceProperty());
 
         buttonBarController = (ButtonBarController) buttonBar.getProperties().get("ButtonBarController");
         buttonBarController.setOnNewAction(() -> onAddTour(new ActionEvent()));
