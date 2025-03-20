@@ -167,6 +167,7 @@ public class TourPlannerController implements Initializable {
         buttonBarController.setOnNewAction(() -> onAddTour(new ActionEvent()));
         buttonBarController.setOnEditAction(() -> onEditTour(new ActionEvent()));
         buttonBarController.setOnDeleteAction(() -> onDeleteTour(new ActionEvent()));
+        buttonBarController.setOnDetailsAction(() -> onDetails(new ActionEvent()));
         System.out.println("ButtonBar actions are set!");
     }
 

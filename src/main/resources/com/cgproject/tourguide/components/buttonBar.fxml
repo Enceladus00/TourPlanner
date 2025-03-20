@@ -10,5 +10,6 @@
         <Button fx:id="newButton" text="New"/>
         <Button fx:id="editButton" text="Edit"/>
         <Button fx:id="deleteButton" text="Delete"/>
+        <Button fx:id="detailsButton" text="Details"/>
     </buttons>
 </ButtonBar>

@@ -13,6 +13,7 @@ public class ButtonBarController implements Initializable {
     @FXML private Button newButton;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
+    @FXML private Button detailsButton;
 
     public ButtonBarController() {
     }
@@ -41,6 +42,14 @@ public class ButtonBarController implements Initializable {
             deleteButton.setOnAction(event -> action.run());
         } else {
             System.out.println("deleteButton is null");
+        }
+    }
+
+    public void setOnDetailsAction(Runnable action) {
+        if (detailsButton != null) {
+            detailsButton.setOnAction(event -> action.run());
+        } else {
+            System.out.println("detailsButton is null");
         }
     }
 }
