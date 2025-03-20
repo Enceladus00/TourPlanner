@@ -6,7 +6,7 @@ import javafx.beans.property.*;
 import java.time.LocalDateTime;
 
 public class TourLogViewModel {
-    private final ObjectProperty<LocalDateTime> dateTime;
+    private final DoubleProperty dateTime;
     private final StringProperty comment;
     private final DoubleProperty difficulty;
     private final DoubleProperty totalDistance;
@@ -14,7 +14,7 @@ public class TourLogViewModel {
     private final DoubleProperty rating;
 
     public TourLogViewModel(TourLog tourLog) {
-        this.dateTime = new SimpleObjectProperty<>(tourLog.getDateTime());
+        this.dateTime = new SimpleDoubleProperty(tourLog.getDateTime());
         this.comment = new SimpleStringProperty(tourLog.getComment());
         this.difficulty = new SimpleDoubleProperty(tourLog.getDifficulty());
         this.totalDistance = new SimpleDoubleProperty(tourLog.getTotalDistance());
@@ -23,7 +23,7 @@ public class TourLogViewModel {
     }
 
     // Getters for properties
-    public ObjectProperty<LocalDateTime> dateTimeProperty() {
+    public DoubleProperty dateTimeProperty() {
         return dateTime;
     }
 

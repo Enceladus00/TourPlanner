@@ -3,7 +3,7 @@ package com.cgproject.tourguide.models;
 import java.time.LocalDateTime;
 
 public class TourLog {
-    private LocalDateTime dateTime;
+    private double dateTime;
     private String comment;
     private double difficulty;
     private double totalDistance;
@@ -11,7 +11,7 @@ public class TourLog {
     private double rating;
 
     // Constructor
-    public TourLog(LocalDateTime dateTime, String comment, double difficulty, double totalDistance, double totalTime, double rating) {
+    public TourLog(double dateTime, String comment, double difficulty, double totalDistance, double totalTime, double rating) {
         this.dateTime = dateTime;
         this.comment = comment;
         this.difficulty = difficulty;
@@ -21,11 +21,11 @@ public class TourLog {
     }
 
     // Getters and Setters
-    public LocalDateTime getDateTime() {
+    public double getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(double dateTime) {
         this.dateTime = dateTime;
     }
 
