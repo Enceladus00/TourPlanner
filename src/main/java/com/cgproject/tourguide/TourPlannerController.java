@@ -1,18 +1,14 @@
 package com.cgproject.tourguide;
+import com.cgproject.tourguide.components.ButtonBarController;
 import com.cgproject.tourguide.models.Tour;
 import com.cgproject.tourguide.viewModels.TourListViewModel;
 import com.cgproject.tourguide.viewModels.TourViewModel;
-import com.cgproject.tourguide.components.ButtonBar;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -20,9 +16,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TourPlannerController implements Initializable {
@@ -54,15 +50,13 @@ public class TourPlannerController implements Initializable {
     private ListView<TourViewModel> tourListView;
 
     @FXML
-    private Button addTourButton;
+    private ButtonBar buttonBar;
 
     @FXML
-    private Button editTourButton;
-
-    @FXML
-    private Button deleteTourButton;
-
     private TourListViewModel tourListViewAdd;
+
+    @FXML
+    private ButtonBarController buttonBarController;
 
 
     @FXML
@@ -145,6 +139,7 @@ public class TourPlannerController implements Initializable {
         }
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tourListViewAdd = new TourListViewModel();
@@ -167,5 +162,12 @@ public class TourPlannerController implements Initializable {
                 };
             }
         });
+
+        buttonBarController = (ButtonBarController) buttonBar.getProperties().get("ButtonBarController");
+        buttonBarController.setOnNewAction(() -> onAddTour(new ActionEvent()));
+        buttonBarController.setOnEditAction(() -> onEditTour(new ActionEvent()));
+        buttonBarController.setOnDeleteAction(() -> onDeleteTour(new ActionEvent()));
+        System.out.println("ButtonBar actions are set!");
     }
+
 }
