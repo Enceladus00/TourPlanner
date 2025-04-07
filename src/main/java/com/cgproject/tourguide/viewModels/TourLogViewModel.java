@@ -1,9 +1,6 @@
 package com.cgproject.tourguide.viewModels;
-
 import com.cgproject.tourguide.models.TourLog;
 import javafx.beans.property.*;
-
-import java.time.LocalDateTime;
 
 public class TourLogViewModel {
     private final DoubleProperty date;
@@ -13,8 +10,9 @@ public class TourLogViewModel {
     private final DoubleProperty totalDistance;
     private final DoubleProperty totalTime;
     private final DoubleProperty rating;
+    private final StringProperty parent;
 
-    public TourLogViewModel(TourLog tourLog) {
+    public TourLogViewModel(TourLog tourLog, String parent) {
         this.date = new SimpleDoubleProperty(tourLog.getDate());
         this.time = new SimpleDoubleProperty(tourLog.getTime());
         this.comment = new SimpleStringProperty(tourLog.getComment());
@@ -22,12 +20,18 @@ public class TourLogViewModel {
         this.totalDistance = new SimpleDoubleProperty(tourLog.getTotalDistance());
         this.totalTime = new SimpleDoubleProperty(tourLog.getTotalTime());
         this.rating = new SimpleDoubleProperty(tourLog.getRating());
+        this.parent = new SimpleStringProperty(parent);
+    }
+
+    public TourLogViewModel(TourLog tourLog) {
+        this(tourLog, "");
     }
 
     // Getters for properties
     public DoubleProperty dateProperty() {
         return date;
     }
+
     public DoubleProperty timeProperty() {
         return time;
     }
@@ -49,5 +53,22 @@ public class TourLogViewModel {
 
     public DoubleProperty ratingProperty() {
         return rating;
+    }
+
+    public StringProperty parentProperty() {
+        return parent;
+    }
+
+    // getters for table view binding
+    public String getComment() {
+        return comment.get();
+    }
+
+    public double getRating() {
+        return rating.get();
+    }
+
+    public String getParent() {
+        return parent.get();
     }
 }
