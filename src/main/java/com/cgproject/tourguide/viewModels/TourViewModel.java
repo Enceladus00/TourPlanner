@@ -15,6 +15,33 @@ public class TourViewModel {
     public String getName() {
         return name.get();
     }
+    public String getTourDescription() {
+        return tourDescription.get();
+    }
+
+    public String getFrom() {
+        return from.get();
+    }
+
+    public String getTo() {
+        return to.get();
+    }
+
+    public String getTransportType() {
+        return transportType.get();
+    }
+
+    public double getTourDistance() {
+        return tourDistance.get();
+    }
+
+    public double getEstimatedTime() {
+        return estimatedTime.get();
+    }
+
+    public String getRouteInformation() {
+        return routeInformation.get();
+    }
     public TourViewModel(Tour tour) {
         this.name = new SimpleStringProperty(tour.getName());
         this.tourDescription = new SimpleStringProperty(tour.getTourDescription());

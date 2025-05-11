@@ -60,9 +60,9 @@
                         <Button mnemonicParsing="false" onAction="#onDeleteTourLog" text="Delete" />
                     </buttons>
                   </ButtonBar>
-                  <TableView fx:id="tourLogTableView"   prefHeight="188.0" prefWidth="428.0">
+                  <TableView fx:id="tourLogTableView" prefHeight="188.0" prefWidth="428.0">
                     <columns>
-                      <TableColumn fx:id="dateColumn"  prefWidth="140" text="Date" />
+                      <TableColumn fx:id="dateColumn" prefWidth="140" text="Date" />
                       <TableColumn fx:id="durationColumn" prefWidth="140" text="Duration" />
                         <TableColumn fx:id="distanceColumn" prefWidth="140" text="Distance" />
                     </columns>
@@ -71,9 +71,10 @@
                 </VBox>
                 <VBox prefHeight="200.0" prefWidth="100.0">
                     <children>
-                        <fx:include source="components/buttonBar.fxml" fx:id="buttonBar"/>
+                        <fx:include fx:id="buttonBar" source="components/buttonBar.fxml" />
                         <!--<com.cgproject.tourguide.components.ButtonBarController fx:id="buttonBarController"/>-->
                         <ListView fx:id="tourListView" />
+                  <Button mnemonicParsing="false" onAction="#onGeneratePdf" text="Generate Pdf" />
                     </children>
                 </VBox>
             </children>

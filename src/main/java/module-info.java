@@ -10,6 +10,8 @@ module com.cgproject.tourguide {
     requires org.kordamp.bootstrapfx.core;
 
     requires com.almasb.fxgl.all;
+    requires kernel;
+    requires layout;
 
     opens com.cgproject.tourguide to javafx.fxml;
     exports com.cgproject.tourguide;

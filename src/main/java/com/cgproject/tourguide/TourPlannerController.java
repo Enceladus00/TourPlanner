@@ -2,6 +2,7 @@ package com.cgproject.tourguide;
 import com.cgproject.tourguide.components.ButtonBarController;
 import com.cgproject.tourguide.models.Tour;
 import com.cgproject.tourguide.models.TourLog;
+import com.cgproject.tourguide.util.PdfGenerator;
 import com.cgproject.tourguide.viewModels.TourListViewModel;
 import com.cgproject.tourguide.viewModels.TourLogTableViewModel;
 import com.cgproject.tourguide.viewModels.TourLogViewModel;
@@ -65,7 +66,32 @@ public class TourPlannerController implements Initializable {
     @FXML
     private ButtonBarController buttonBarController;
 
-
+    @FXML
+    private void onGeneratePdf(ActionEvent event) {
+        TourViewModel selectedTour = tourListView.getSelectionModel().getSelectedItem();
+        if (selectedTour != null) {
+            PdfGenerator pdfGenerator = new PdfGenerator();
+            String filePath = "Tour_" + selectedTour.getName() + ".pdf"; // Define the file path
+            try {
+                pdfGenerator.generateTourPdf(
+                        filePath,
+                        selectedTour.getName(),
+                        selectedTour.getFrom(),
+                        selectedTour.getTo(),
+                        selectedTour.getTransportType(),
+                        selectedTour.getEstimatedTime(),
+                        selectedTour.getTourDistance(),
+                        selectedTour.getTourDescription()
+                );
+                System.out.println("PDF generated successfully: " + filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Failed to generate PDF.");
+            }
+        } else {
+            System.out.println("No tour selected for PDF generation.");
+        }
+    }
     @FXML
     private void onAddTour(ActionEvent event) {
         Tour tour = new Tour("New Tour", "", "", "", "", 0, 0, "");
@@ -240,5 +266,4 @@ public class TourPlannerController implements Initializable {
         buttonBarController.setOnDetailsAction(() -> onDetails(new ActionEvent()));
         System.out.println("ButtonBar actions are set!");
     }
-
 }
