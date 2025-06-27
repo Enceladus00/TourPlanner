@@ -1,6 +1,9 @@
 package com.cgproject.tourguide.viewModels;
 import com.cgproject.tourguide.models.Tour;
+import com.cgproject.tourguide.models.TourLog;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class TourViewModel {
     private final StringProperty name;
@@ -11,6 +14,9 @@ public class TourViewModel {
     private final DoubleProperty tourDistance;
     private final DoubleProperty estimatedTime;
     private final StringProperty routeInformation;
+    private final ObservableList<TourLogViewModel> tourLogViewModels;
+
+
 
     public String getName() {
         return name.get();
@@ -51,6 +57,11 @@ public class TourViewModel {
         this.tourDistance = new SimpleDoubleProperty(tour.getTourDistance());
         this.estimatedTime = new SimpleDoubleProperty(tour.getEstimatedTime());
         this.routeInformation = new SimpleStringProperty(tour.getRouteInformation());
+        this.tourLogViewModels = FXCollections.observableArrayList();
+        for (TourLog tourLog : tour.getTourLogs()) {
+            this.tourLogViewModels.add(new TourLogViewModel(tourLog));
+        }
+
     }
 
     public StringProperty nameProperty() {
@@ -83,5 +94,8 @@ public class TourViewModel {
 
     public StringProperty routeInformationProperty() {
         return routeInformation;
+    }
+    public ObservableList<TourLogViewModel> getTourLogViewModels() {
+        return tourLogViewModels;
     }
 }

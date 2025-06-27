@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.collections.ObservableList;
 
 
 import java.io.IOException;
@@ -178,7 +179,7 @@ public class TourPlannerController implements Initializable {
         tourLogTableView.getItems().add(tlvm);
         tourLogTableView.getSelectionModel().clearSelection();
         tourLogTableView.getSelectionModel().select(tlvm);
-        this.onEditTour(new ActionEvent());
+        this.onEditTourLog(new ActionEvent());
         System.out.println("Add Tour Log button clicked");
     }
     @FXML
@@ -234,30 +235,31 @@ public class TourPlannerController implements Initializable {
         tourListView.setItems(tourListViewAdd.getTours());
 
         // Set custom cell factory to display tour names
-        tourListView.setCellFactory(new Callback<ListView<TourViewModel>, ListCell<TourViewModel>>() {
+        tourListView.setCellFactory(listView -> new ListCell<TourViewModel>() {
             @Override
-            public ListCell<TourViewModel> call(ListView<TourViewModel> listView) {
-                return new ListCell<TourViewModel>() {
-                    @Override
-                    protected void updateItem(TourViewModel item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                };
+            protected void updateItem(TourViewModel item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName());
+                }
             }
         });
 
-        TourLogTableViewModel tourLogTableViewModel = new TourLogTableViewModel();
-        tourLogTableView.setItems(tourLogTableViewModel.getTourLogs());
-
-        // Bind columns to properties
+        // Bind columns to TourLogViewModel properties
         dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
         durationColumn.setCellValueFactory(cellData -> cellData.getValue().timeProperty());
         distanceColumn.setCellValueFactory(cellData -> cellData.getValue().totalDistanceProperty());
+
+        // Listen for selection changes in the tour list
+        tourListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                tourLogTableView.setItems(newSelection.getTourLogViewModels());
+            } else {
+                tourLogTableView.setItems(null);
+            }
+        });
 
         buttonBarController = (ButtonBarController) buttonBar.getProperties().get("ButtonBarController");
         buttonBarController.setOnNewAction(() -> onAddTour(new ActionEvent()));

@@ -13,6 +13,7 @@ module com.cgproject.tourguide {
     requires kernel;
     requires layout;
 
+
     opens com.cgproject.tourguide to javafx.fxml;
     exports com.cgproject.tourguide;
     opens com.cgproject.tourguide.components to javafx.fxml;
