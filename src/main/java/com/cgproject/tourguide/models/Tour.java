@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tour {
+    private Integer id; // <--- add this line!
     private String name;
     private String tourDescription;
     private String from;
@@ -14,8 +15,14 @@ public class Tour {
     private String routeInformation;
     private List<TourLog> tourLogs;
 
-    // Constructor
+    // Constructor (for new tours)
     public Tour(String name, String tourDescription, String from, String to, String transportType, double tourDistance, double estimatedTime, String routeInformation) {
+        this(null, name, tourDescription, from, to, transportType, tourDistance, estimatedTime, routeInformation);
+    }
+
+    // Constructor (for tours with known ID)
+    public Tour(Integer id, String name, String tourDescription, String from, String to, String transportType, double tourDistance, double estimatedTime, String routeInformation) {
+        this.id = id;
         this.name = name;
         this.tourDescription = tourDescription;
         this.from = from;
@@ -28,6 +35,12 @@ public class Tour {
     }
 
     // Getters and Setters
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }
@@ -92,10 +105,15 @@ public class Tour {
         this.routeInformation = routeInformation;
     }
     public List<TourLog> getTourLogs() {
+        if (tourLogs == null) return new ArrayList<>();
         return tourLogs;
     }
-    public  void  setTourLogs(List<TourLog> tourLogs) {
-        this.tourLogs = tourLogs;
+    public void setTourLogs(List<TourLog> tourLogs) {
+        if (tourLogs == null) {
+            this.tourLogs = new ArrayList<>();
+        } else {
+            this.tourLogs = tourLogs;
+        }
     }
     public void addTourLog(TourLog tourLog) {
         this.tourLogs.add(tourLog);
@@ -103,5 +121,4 @@ public class Tour {
     public void removeTourLog(TourLog tourLog) {
         this.tourLogs.remove(tourLog);
     }
-
 }

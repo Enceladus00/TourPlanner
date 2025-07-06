@@ -20,6 +20,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.collections.ObservableList;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.net.HttpURLConnection;
+import java.util.List;
+import java.util.ArrayList;
 
 
 import java.io.IOException;
@@ -97,12 +104,35 @@ public class TourPlannerController implements Initializable {
     private void onAddTour(ActionEvent event) {
         Tour tour = new Tour("New Tour", "", "", "", "", 0, 0, "");
         TourViewModel tvm = new TourViewModel(tour);
-        tourListViewAdd.addTour(tvm);
-        tourListView.getSelectionModel().clearSelection();
-        tourListView.getSelectionModel().select(tvm);
-        this.onEditTour(new ActionEvent());
-        System.out.println("Add Tour button clicked");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("tourEditWindow.fxml"));
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add Tour");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(tourListView.getScene().getWindow());
+            Scene scene = new Scene(loader.load());
+            dialogStage.setScene(scene);
+
+            TourEditController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setTourViewModel(tvm);
+            controller.setReloadToursCallback(this::reloadTourListFromBackend);
+
+            dialogStage.showAndWait();
+
+            if (controller.isOkClicked()) {
+                reloadTourListFromBackend();
+                if (!tourListViewAdd.getTours().isEmpty()) {
+                    tourListView.getSelectionModel().selectLast();
+                }
+                System.out.println("Tour added successfully");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
     @FXML
     private void onEditTour(ActionEvent event) {
         TourViewModel selectedTour = tourListView.getSelectionModel().getSelectedItem();
@@ -119,6 +149,8 @@ public class TourPlannerController implements Initializable {
                 TourEditController controller = loader.getController();
                 controller.setDialogStage(dialogStage);
                 controller.setTourViewModel(selectedTour);
+                controller.setReloadToursCallback(this::reloadTourListFromBackend); // pass the reload action!
+
 
                 dialogStage.showAndWait();
 
@@ -232,6 +264,9 @@ public class TourPlannerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tourListViewAdd = new TourListViewModel();
+
+        // load tours from backend, not from memory
+        reloadTourListFromBackend();
         tourListView.setItems(tourListViewAdd.getTours());
 
         // Set custom cell factory to display tour names
@@ -268,4 +303,39 @@ public class TourPlannerController implements Initializable {
         buttonBarController.setOnDetailsAction(() -> onDetails(new ActionEvent()));
         System.out.println("ButtonBar actions are set!");
     }
+
+
+    //fetches all tours from backend and returns as List<Tour>
+    private List<Tour> fetchToursFromBackend() {
+        List<Tour> fetchedTours = new ArrayList<>();
+        try {
+            URL url = new URL("http://localhost:8080/api/tours"); // update if needed
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+
+            int responseCode = con.getResponseCode();
+            if (responseCode == 200) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                Gson gson = new Gson();
+                fetchedTours = gson.fromJson(in, new TypeToken<List<Tour>>(){}.getType());
+                in.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fetchedTours;
+    }
+
+    //updates the observable list from backend
+    private void reloadTourListFromBackend() {
+        List<Tour> backendTours = fetchToursFromBackend();
+        ObservableList<TourViewModel> observableTourVMs = tourListViewAdd.getTours();
+        observableTourVMs.clear();
+        for (Tour tour : backendTours) {
+            observableTourVMs.add(new TourViewModel(tour));
+        }
+    }
+
+
+
 }

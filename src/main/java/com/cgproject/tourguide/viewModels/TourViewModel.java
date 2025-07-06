@@ -4,6 +4,8 @@ import com.cgproject.tourguide.models.TourLog;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class TourViewModel {
     private final StringProperty name;
@@ -15,6 +17,11 @@ public class TourViewModel {
     private final DoubleProperty estimatedTime;
     private final StringProperty routeInformation;
     private final ObservableList<TourLogViewModel> tourLogViewModels;
+    private final IntegerProperty id = new SimpleIntegerProperty();
+
+    public IntegerProperty idProperty() { return id; }
+    public int getId() { return id.get(); }
+    public void setId(int id) { this.id.set(id); }
 
 
 
@@ -61,6 +68,8 @@ public class TourViewModel {
         for (TourLog tourLog : tour.getTourLogs()) {
             this.tourLogViewModels.add(new TourLogViewModel(tourLog));
         }
+        Integer tourId = tour.getId();
+        this.id.set(tourId != null ? tourId : 0);
 
     }
 

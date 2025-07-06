@@ -71,4 +71,19 @@ public class TourLogViewModel {
     public String getParent() {
         return parent.get();
     }
+
+    public TourLog toTourLog() {
+        TourLog log = new TourLog(
+                date.get(),
+                time.get(),
+                comment.get(),
+                difficulty.get(),
+                totalDistance.get(),
+                totalTime.get(),
+                rating.get()
+        );
+        return log;
+    }
+
+
 }

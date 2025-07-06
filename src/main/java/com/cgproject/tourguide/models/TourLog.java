@@ -10,6 +10,8 @@ public class TourLog {
     private double totalDistance;
     private double totalTime;
     private double rating;
+    private Integer id;
+    private Integer tourId;
 
     // Constructor
     public TourLog(double date, double time, String comment, double difficulty, double totalDistance, double totalTime, double rating) {
@@ -75,4 +77,7 @@ public class TourLog {
     public void setRating(double rating) {
         this.rating = rating;
     }
+
+    public Integer getTourId() { return tourId; }
+    public void setTourId(Integer tourId) { this.tourId = tourId; }
 }
