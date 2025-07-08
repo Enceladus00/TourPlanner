@@ -4,10 +4,13 @@ import com.cgproject.tourguide.backend.entity.Tour;
 import com.cgproject.tourguide.backend.service.TourService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @RestController
 @RequestMapping("/api/tours")
 public class TourController {
+    private static final Logger logger = LogManager.getLogger(TourController.class);
     private final TourService service;
 
     public TourController(TourService service) {
@@ -15,14 +18,25 @@ public class TourController {
     }
 
     @GetMapping
-    public List<Tour> getAllTours() { return service.getAllTours(); }
+    public List<Tour> getAllTours() {
+        logger.info("Fetching all tours");
+        return service.getAllTours();
+    }
 
     @GetMapping("/{id}")
-    public Tour getTour(@PathVariable Long id) { return service.getTour(id); }
+    public Tour getTour(@PathVariable Long id) {
+        logger.debug("Fetching tour with ID: {}", id);
+        return service.getTour(id);
+    }
 
     @PostMapping
-    public Tour saveTour(@RequestBody Tour tour) { return service.saveTour(tour); }
+    public Tour saveTour(@RequestBody Tour tour) {
+        logger.info("Saving new tour: {}", tour);
+        return service.saveTour(tour);
+    }
 
     @DeleteMapping("/{id}")
-    public void deleteTour(@PathVariable Long id) { service.deleteTour(id); }
+    public void deleteTour(@PathVariable Long id) {
+        logger.warn("Deleting tour with ID: {}", id);
+        service.deleteTour(id); }
 }
