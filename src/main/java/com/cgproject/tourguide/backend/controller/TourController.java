@@ -35,6 +35,13 @@ public class TourController {
         return service.saveTour(tour);
     }
 
+    @PutMapping("/{id}")
+    public Tour updateTour(@PathVariable("id") Long id, @RequestBody Tour tour) {
+        logger.info("Updating tour with ID: {}", id);
+        return service.updateTour(id, tour);
+    }
+
+
     @DeleteMapping("/{id}")
     public void deleteTour(@PathVariable Long id) {
         logger.warn("Deleting tour with ID: {}", id);

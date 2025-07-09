@@ -134,19 +134,21 @@ public class TourEditController {
     private boolean saveTourToBackend() {
         try {
             // build JSON from the edited TourViewModel
+            // if you have tour id, use PUT, otherwise POST
+            boolean isNew = tourViewModel.getId() == 0; // or check for null/negative
             String json =
-                    "{" +
+                    (isNew ? "" : "\"id\":" + tourViewModel.getId() + ",") +
                             "\"name\":\"" + escapeJson(tourViewModel.getName()) + "\"," +
                             "\"description\":\"" + escapeJson(tourViewModel.getTourDescription()) + "\"," +
                             "\"fromLocation\":\"" + escapeJson(tourViewModel.getFrom()) + "\"," +
                             "\"toLocation\":\"" + escapeJson(tourViewModel.getTo()) + "\"," +
                             "\"transportType\":\"" + escapeJson(tourViewModel.getTransportType()) + "\"," +
                             "\"distance\":" + tourViewModel.getTourDistance() + "," +
-                            "\"estimatedTime\":" + tourViewModel.getEstimatedTime() +
-                            "}";
+                            "\"estimatedTime\":" + tourViewModel.getEstimatedTime();
 
-            // if you have tour id, use PUT, otherwise POST
-            boolean isNew = tourViewModel.getId() == 0; // or check for null/negative
+            json = "{" + json + "}";
+
+
             URL url = isNew
                     ? new URL("http://localhost:8080/api/tours")
                     : new URL("http://localhost:8080/api/tours/" + tourViewModel.getId());
