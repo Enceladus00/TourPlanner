@@ -336,6 +336,29 @@ public class TourPlannerController implements Initializable {
         }
     }
 
+    @FXML
+    private void onShowInBrowser() {
+        TourViewModel selectedTour = tourListView.getSelectionModel().getSelectedItem();
+
+        if (selectedTour != null) {
+            String from = selectedTour.getFrom();
+            String to = selectedTour.getTo();
+
+            //url encode the locations
+            try {
+                String fromEncoded = java.net.URLEncoder.encode(from, "UTF-8");
+                String toEncoded = java.net.URLEncoder.encode(to, "UTF-8");
+                String url = String.format("https://www.google.com/maps/dir/%s/%s", fromEncoded, toEncoded);
+
+                //open in browser
+                java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 
 
 }

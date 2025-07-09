@@ -74,7 +74,8 @@
                         <fx:include fx:id="buttonBar" source="components/buttonBar.fxml" />
                         <!--<com.cgproject.tourguide.components.ButtonBarController fx:id="buttonBarController"/>-->
                         <ListView fx:id="tourListView" />
-                  <Button mnemonicParsing="false" onAction="#onGeneratePdf" text="Generate Pdf" />
+                        <Button mnemonicParsing="false" onAction="#onGeneratePdf" text="Generate Pdf" />
+                        <Button fx:id="showInBrowserButton" text="Show in Browser" onAction="#onShowInBrowser"/>
                     </children>
                 </VBox>
             </children>
