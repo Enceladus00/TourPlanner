@@ -2,6 +2,7 @@ package com.cgproject.tourguide.backend.controller;
 
 import com.cgproject.tourguide.backend.entity.Tour;
 import com.cgproject.tourguide.backend.service.TourService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 @RestController
 @RequestMapping("/api/tours")
+@CrossOrigin(origins = "http://localhost:8080")
 public class TourController {
     private static final Logger logger = LogManager.getLogger(TourController.class);
     private final TourService service;
@@ -43,7 +45,9 @@ public class TourController {
 
 
     @DeleteMapping("/{id}")
-    public void deleteTour(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTour(@PathVariable(name = "id") Long id) {
         logger.warn("Deleting tour with ID: {}", id);
-        service.deleteTour(id); }
+        service.deleteTour(id);
+        return ResponseEntity.noContent().build();
+    }
 }

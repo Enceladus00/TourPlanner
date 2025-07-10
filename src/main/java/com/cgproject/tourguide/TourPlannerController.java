@@ -170,10 +170,25 @@ public class TourPlannerController implements Initializable {
     private void onDeleteTour(ActionEvent event) {
         TourViewModel selectedTour = tourListView.getSelectionModel().getSelectedItem();
         if (selectedTour != null) {
-            tourListViewAdd.removeTour(selectedTour);
-            tourListView.getSelectionModel().clearSelection();
-            tourListView.refresh();
-            System.out.println("Tour deleted successfully");
+            try {
+                URL url = new URL("http://localhost:8080/api/tours/" + selectedTour.getId());
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("DELETE");
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode == 200 || responseCode == 204) {
+                    tourListViewAdd.removeTour(selectedTour);
+                    tourListView.getSelectionModel().clearSelection();
+                    tourListView.refresh();
+                    System.out.println("Tour deleted successfully");
+                } else {
+                    System.out.println("Failed to delete tour from backend. Response code: " + responseCode);
+                }
+                conn.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error deleting tour: " + e.getMessage());
+            }
         } else {
             System.out.println("No tour selected for deletion");
         }
