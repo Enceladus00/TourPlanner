@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -37,6 +38,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TourPlannerController implements Initializable {
+
 
     @FXML
     private VBox vbox;
@@ -107,6 +109,25 @@ public class TourPlannerController implements Initializable {
             System.out.println("No tour selected for PDF generation.");
         }
     }
+
+    private void setupSearch() {
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.isEmpty()) {
+                reloadTourListFromBackend();
+            } else {
+                String searchText = newValue.toLowerCase();
+                ObservableList<TourViewModel> allTours = tourListViewAdd.getTours();
+                ObservableList<TourViewModel> filteredTours = allTours.filtered(tour ->
+                        tour.getName().toLowerCase().contains(searchText) ||
+                                tour.getFrom().toLowerCase().contains(searchText) ||
+                                tour.getTo().toLowerCase().contains(searchText) ||
+                                tour.getTourDescription().toLowerCase().contains(searchText)
+                );
+                tourListView.setItems(filteredTours);
+            }
+        });
+    }
+
     @FXML
     private void onAddTour(ActionEvent event) {
         Tour tour = new Tour("New Tour", "", "", "", "", 0, 0, "");
@@ -286,7 +307,7 @@ public class TourPlannerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tourListViewAdd = new TourListViewModel();
-
+        setupSearch();
         // load tours from backend, not from memory
         reloadTourListFromBackend();
         tourListView.setItems(tourListViewAdd.getTours());

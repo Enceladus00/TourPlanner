@@ -4,34 +4,41 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
 public class PdfGenerator {
+    private static final Logger logger = LogManager.getLogger(PdfGenerator.class);
 
-    public void generateTourPdf(String filePath, String tourName, String from, String to, String transportType, double estimatedTime, double distance, String description) throws IOException {
-        // Create a PdfWriter instance
-        PdfWriter writer = new PdfWriter(filePath);
+    public void generateTourPdf(String filePath, String tourName, String from, String to,
+                                String transportType, double estimatedTime, double distance, String description) throws IOException {
 
-        // Create a PdfDocument instance
-        PdfDocument pdfDocument = new PdfDocument(writer);
+        logger.info("Starting PDF generation for tour: {}", tourName);
+        logger.debug("PDF will be saved to: {}", filePath);
 
-        // Create a Document instance
-        Document document = new Document(pdfDocument);
+        try {
+            PdfWriter writer = new PdfWriter(filePath);
+            PdfDocument pdfDocument = new PdfDocument(writer);
+            Document document = new Document(pdfDocument);
 
-        // Add tour details to the document
-        document.add(new Paragraph("Tour Details").setBold().setFontSize(16));
-        document.add(new Paragraph("Tour Name: " + tourName));
-        document.add(new Paragraph("From: " + from));
-        document.add(new Paragraph("To: " + to));
-        document.add(new Paragraph("Transport Type: " + transportType));
-        document.add(new Paragraph("Estimated Time: " + estimatedTime + " hours"));
-        document.add(new Paragraph("Distance: " + distance + " km"));
-        document.add(new Paragraph("Description: " + description));
+            logger.debug("Adding tour details to PDF document");
+            document.add(new Paragraph("Tour Details").setBold().setFontSize(16));
+            document.add(new Paragraph("Tour Name: " + tourName));
+            document.add(new Paragraph("From: " + from));
+            document.add(new Paragraph("To: " + to));
+            document.add(new Paragraph("Transport Type: " + transportType));
+            document.add(new Paragraph("Estimated Time: " + estimatedTime + " hours"));
+            document.add(new Paragraph("Distance: " + distance + " km"));
+            document.add(new Paragraph("Description: " + description));
 
-        // Close the document
-        document.close();
+            document.close();
+            logger.info("Successfully generated PDF for tour: {} at {}", tourName, filePath);
 
-        System.out.println("Tour PDF generated successfully at: " + filePath);
+        } catch (IOException e) {
+            logger.error("Failed to generate PDF for tour: {}. Error: {}", tourName, e.getMessage());
+            throw e;
+        }
     }
 }
