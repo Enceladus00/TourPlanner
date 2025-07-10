@@ -27,6 +27,9 @@ import java.io.BufferedReader;
 import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.ArrayList;
+import javafx.scene.web.WebView;
+import javafx.fxml.FXML;
+import java.io.File;
 
 
 import java.io.IOException;
@@ -73,6 +76,10 @@ public class TourPlannerController implements Initializable {
 
     @FXML
     private ButtonBarController buttonBarController;
+
+    @FXML
+    private WebView mapWebView;
+
 
     @FXML
     private void onGeneratePdf(ActionEvent event) {
@@ -317,8 +324,17 @@ public class TourPlannerController implements Initializable {
         buttonBarController.setOnDeleteAction(() -> onDeleteTour(new ActionEvent()));
         buttonBarController.setOnDetailsAction(() -> onDetails(new ActionEvent()));
         System.out.println("ButtonBar actions are set!");
+        loadMap();
     }
 
+    private void loadMap() {
+        try {
+            File file = new File("src/main/resources/map.html");
+            mapWebView.getEngine().load(file.toURI().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     //fetches all tours from backend and returns as List<Tour>
     private List<Tour> fetchToursFromBackend() {

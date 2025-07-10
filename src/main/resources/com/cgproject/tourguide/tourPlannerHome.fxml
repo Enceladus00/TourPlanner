@@ -15,6 +15,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cgproject.tourguide.TourPlannerController">
     <children>
@@ -49,11 +51,8 @@
             <children>
                 <VBox prefHeight="200.0" prefWidth="418.0" GridPane.columnIndex="1">
                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="351.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../../../map.jpg" />
-                     </image></ImageView>
-                  <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                        <WebView fx:id="mapWebView" prefHeight="400" />
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
                       <Button mnemonicParsing="false" onAction="#onAddTourLog" text="Add" />
                         <Button mnemonicParsing="false" onAction="#onEditTourLog" text="Edit" />
