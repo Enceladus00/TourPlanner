@@ -1,5 +1,7 @@
 package com.cgproject.tourguide.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,9 @@ public class Tour {
     private Integer id; // <--- add this line!
     private String name;
     private String tourDescription;
+    @SerializedName("fromLocation")
     private String from;
+    @SerializedName("toLocation")
     private String to;
     private String transportType;
     private double tourDistance;

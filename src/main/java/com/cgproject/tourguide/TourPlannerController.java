@@ -359,6 +359,8 @@ public class TourPlannerController implements Initializable {
             String from = selectedTour.getFrom();
             String to = selectedTour.getTo();
 
+            System.out.println("From: " + from);
+            System.out.println("To: " + to);
             //url encode the locations
             try {
                 String fromEncoded = java.net.URLEncoder.encode(from, "UTF-8");
