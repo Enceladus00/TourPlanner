@@ -8,12 +8,14 @@ import java.util.List;
 public class Tour {
     private Integer id; // <--- add this line!
     private String name;
+    @SerializedName("description")
     private String tourDescription;
     @SerializedName("fromLocation")
     private String from;
     @SerializedName("toLocation")
     private String to;
     private String transportType;
+    @SerializedName("distance")
     private double tourDistance;
     private double estimatedTime;
     private String routeInformation;
